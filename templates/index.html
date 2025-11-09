@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">🔒 Embed Watermark</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('embed_watermark') }}" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="audio_file" class="form-label">Audio File (WAV)</label>
+                        <input type="file" class="form-control" id="audio_file" name="audio_file" accept=".wav" required>
+                        <small class="text-muted">Upload the audio file to embed watermark into</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="watermark_file" class="form-label">Watermark Image</label>
+                        <input type="file" class="form-control" id="watermark_file" name="watermark_file" accept=".png,.jpg,.jpeg" required>
+                        <small class="text-muted">Upload the image to embed as watermark</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="watermark_type" class="form-label">Watermark Type</label>
+                        <select class="form-select" id="watermark_type" name="watermark_type" required>
+                            <option value="BINARY" selected>Binary</option>
+                            <option value="GRAYSCALE">Grayscale</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="embedding_mode" class="form-label">Embedding Mode</label>
+                        <select class="form-select" id="embedding_mode" name="embedding_mode" required>
+                            <option value="delta">Delta</option>
+                            <option value="bruteBinary" selected>Brute Binary</option>
+                            <option value="bruteGray">Brute Gray</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="scrambling_mode" class="form-label">Scrambling Mode</label>
+                        <select class="form-select" id="scrambling_mode" name="scrambling_mode" required>
+                            <option value="arnold">Arnold</option>
+                            <option value="lower" selected>Lower Triangular</option>
+                            <option value="upper">Upper Triangular</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100">Embed Watermark</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">🔓 Extract Watermark</h4>
+            </div>
+            <div class="card-body">
+                <form action="{{ url_for('extract_watermark') }}" method="POST" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="stego_audio" class="form-label">Stego Audio (WAV)</label>
+                        <input type="file" class="form-control" id="stego_audio" name="stego_audio" accept=".wav" required>
+                        <small class="text-muted">Upload the watermarked audio file</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="original_audio" class="form-label">Original Audio (WAV)</label>
+                        <input type="file" class="form-control" id="original_audio" name="original_audio" accept=".wav" required>
+                        <small class="text-muted">Upload the original audio file for comparison</small>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="extract_embedding_mode" class="form-label">Embedding Mode</label>
+                        <select class="form-select" id="extract_embedding_mode" name="extract_embedding_mode" required>
+                            <option value="delta">Delta</option>
+                            <option value="bruteBinary" selected>Brute Binary</option>
+                            <option value="bruteGray">Brute Gray</option>
+                        </select>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="extract_scrambling_mode" class="form-label">Scrambling Mode</label>
+                        <select class="form-select" id="extract_scrambling_mode" name="extract_scrambling_mode" required>
+                            <option value="arnold">Arnold</option>
+                            <option value="lower" selected>Lower Triangular</option>
+                            <option value="upper">Upper Triangular</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success w-100">Extract Watermark</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <h5>📖 About This System</h5>
+                <p>This audio watermarking system uses:</p>
+                <ul>
+                    <li><strong>DWT (Discrete Wavelet Transform)</strong> - For audio decomposition</li>
+                    <li><strong>DCT (Discrete Cosine Transform)</strong> - For coefficient transformation</li>
+                    <li><strong>Image Scrambling</strong> - Arnold or Triangular mapping for security</li>
+                    <li><strong>Multiple Embedding Modes</strong> - Delta, Brute Binary, and Brute Gray</li>
+                </ul>
+                <p class="mb-0"><strong>Note:</strong> Make sure your audio files are in WAV format and images are in PNG, JPG, or JPEG format.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block title %}Embedding Results - Audio Watermarking{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h2 class="text-success">✅ Watermark Embedded Successfully!</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">📊 Processing Information</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Watermark Type:</th>
+                        <td>{{ watermark_type }}</td>
+                    </tr>
+                    <tr>
+                        <th>Embedding Mode:</th>
+                        <td>{{ embedding_mode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Scrambling Mode:</th>
+                        <td>{{ scrambling_mode }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <h5 class="mb-0">📈 Quality Metrics</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Correlation:</th>
+                        <td>
+                            {% if correlation %}
+                                <span class="badge bg-success">Yes</span>
+                            {% else %}
+                                <span class="badge bg-danger">No</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>PSNR:</th>
+                        <td><strong>{{ psnr }} dB</strong></td>
+                    </tr>
+                    <tr>
+                        <th>SNR (Original):</th>
+                        <td>{{ snr_original }}</td>
+                    </tr>
+                    <tr>
+                        <th>SNR (Stego):</th>
+                        <td>{{ snr_stego }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">🎵 Watermarked Audio</h5>
+            </div>
+            <div class="card-body text-center">
+                <p class="mb-3">Download your watermarked audio file:</p>
+                <a href="{{ url_for('download_file', folder='outputs', filename=stego_audio) }}" class="btn btn-success">
+                    📥 Download Stego Audio
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">🖼️ Extracted Watermark</h5>
+            </div>
+            <div class="card-body text-center">
+                <p class="mb-3">View the extracted watermark image:</p>
+                <img src="{{ url_for('download_file', folder='outputs', filename=extracted_image) }}" 
+                     alt="Extracted Watermark" 
+                     class="img-fluid mb-3" 
+                     style="max-height: 300px; border: 2px solid #ddd; border-radius: 5px;">
+                <br>
+                <a href="{{ url_for('download_file', folder='outputs', filename=extracted_image) }}" 
+                   class="btn btn-warning" download>
+                    📥 Download Extracted Image
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info mt-4">
+    <h6>💡 What do these metrics mean?</h6>
+    <ul class="mb-0">
+        <li><strong>Correlation:</strong> Indicates whether the extracted watermark matches the original (threshold: 0.7)</li>
+        <li><strong>PSNR (Peak Signal-to-Noise Ratio):</strong> Measures the quality of the extracted watermark image (higher is better)</li>
+        <li><strong>SNR (Signal-to-Noise Ratio):</strong> Measures the audio quality (higher is better)</li>
+    </ul>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Extraction Results - Audio Watermarking{% endblock %}
+
+{% block content %}
+<div class="text-center mb-4">
+    <h2 class="text-success">✅ Watermark Extracted Successfully!</h2>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">📊 Processing Information</h5>
+            </div>
+            <div class="card-body">
+                <table class="table">
+                    <tr>
+                        <th>Embedding Mode:</th>
+                        <td>{{ embedding_mode }}</td>
+                    </tr>
+                    <tr>
+                        <th>Scrambling Mode:</th>
+                        <td>{{ scrambling_mode }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-warning text-dark">
+                <h5 class="mb-0">🖼️ Extracted Watermark</h5>
+            </div>
+            <div class="card-body text-center">
+                <img src="{{ url_for('download_file', folder='outputs', filename=extracted_image) }}" 
+                     alt="Extracted Watermark" 
+                     class="img-fluid mb-3" 
+                     style="max-height: 400px; border: 2px solid #ddd; border-radius: 5px;">
+                <br>
+                <a href="{{ url_for('download_file', folder='outputs', filename=extracted_image) }}" 
+                   class="btn btn-warning" download>
+                    📥 Download Extracted Image
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
