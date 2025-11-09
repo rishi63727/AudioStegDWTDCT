@@ -192,7 +192,7 @@ app.run(debug=True, host='0.0.0.0', port=5001)
 - [Maria Ausilia Napoli Spatafora](https://github.com/ausilianapoli)
 - [Mattia Litrico](https://github.com/mattia1997)
 
-**Enhanced Web Interface & Bug Fixes** by [Your Name]
+**Enhanced Web Interface & Bug Fixes** by Rishi Singh
 
 ## 📄 License
 
